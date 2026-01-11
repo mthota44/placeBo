@@ -10,9 +10,9 @@ const Landing = () => {
       <main>
         <HeroSection />
         <HowItWorks />
-        
+
         {/* CTA Section */}
-        <motion.section 
+        <motion.section
           className="py-20 bg-gradient-hero"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -52,7 +52,7 @@ const Landing = () => {
                 Connecting problems with solutions through AI-powered matching.
               </p>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
@@ -61,7 +61,7 @@ const Landing = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
@@ -70,7 +70,7 @@ const Landing = () => {
                 <li><a href="#" className="hover:text-white transition-colors">Community</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
@@ -80,7 +80,7 @@ const Landing = () => {
               </ul>
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 placeBo. All rights reserved.</p>
           </div>

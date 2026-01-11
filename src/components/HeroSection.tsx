@@ -8,8 +8,8 @@ const HeroSection = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative bg-gradient-to-br from-blue-50 via-white to-green-50 py-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-gradient-to-br from-blue-50 via-white to-green-50 min-h-[calc(100vh-4rem)] flex items-center pt-10 pb-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <motion.div
@@ -17,7 +17,7 @@ const HeroSection = () => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <motion.h1 
+            <motion.h1
               className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -29,34 +29,34 @@ const HeroSection = () => {
               </span>{" "}
               – Instantly
             </motion.h1>
-            
-            <motion.p 
-              className="text-xl text-gray-600 mb-8 leading-relaxed"
+
+            <motion.p
+              className="text-xl text-gray-600 mb-6 leading-relaxed"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              Connect with skilled professionals who can solve your business challenges. 
+              Connect with skilled professionals who can solve your business challenges.
               AI-powered matching ensures you find the perfect expert for your project.
             </motion.p>
 
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 mb-12"
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 mb-8"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
-              <Button 
-                variant="hero" 
-                size="lg" 
+              <Button
+                variant="hero"
+                size="lg"
                 className="group"
                 onClick={() => navigate("/post-problem")}
               >
                 Post a Problem
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="lg"
                 onClick={() => navigate("/find-projects")}
               >
@@ -65,7 +65,7 @@ const HeroSection = () => {
             </motion.div>
 
             {/* Trust indicators */}
-            <motion.div 
+            <motion.div
               className="grid grid-cols-3 gap-6 text-center"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -94,16 +94,16 @@ const HeroSection = () => {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-large">
-              <img 
-                src={heroImage} 
+              <img
+                src={heroImage}
                 alt="Professionals collaborating on projects"
                 className="w-full h-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
-            
+
             {/* Floating elements */}
-            <motion.div 
+            <motion.div
               className="absolute -top-6 -right-6 bg-white rounded-xl p-4 shadow-medium"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -114,8 +114,8 @@ const HeroSection = () => {
                 <span className="text-sm font-medium">AI Match Found</span>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-medium"
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
