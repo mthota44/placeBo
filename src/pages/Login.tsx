@@ -14,23 +14,46 @@ const Login = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
-        // Redirect to Quarkus/Keycloak OIDC login
-        // The backend is running on port 8080
-        window.location.href = "http://localhost:8080/q/oidc/login";
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
 
-        // Fallback if backend is down (to show UI state)
-        // setTimeout(() => {
-        //     setLoading(false);
-        //     toast({
-        //         title: "Welcome back!",
-        //         description: "You have successfully signed in.",
-        //     });
-        //     navigate("/dashboard"); // Or wherever the user goes after login
-        // }, 1500);
+        try {
+            const response = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem("token", data.access_token);
+
+                toast({
+                    title: "Welcome back!",
+                    description: "You have successfully signed in.",
+                });
+                navigate("/");
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Login failed",
+                    description: "Invalid email or password.",
+                });
+            }
+        } catch (err) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Connection failed. Please try again.",
+            });
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

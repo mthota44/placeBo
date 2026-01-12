@@ -12,12 +12,26 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.Collections;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.Form;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/auth")
 public class UserResource {
 
     @Inject
     Keycloak keycloak;
+
+    @ConfigProperty(name = "quarkus.oidc.auth-server-url")
+    String keycloakUrl;
+
+    @ConfigProperty(name = "quarkus.oidc.client-id")
+    String clientId;
+
+    @ConfigProperty(name = "quarkus.oidc.credentials.secret")
+    String clientSecret;
 
     @POST
     @Path("/register")
@@ -51,7 +65,42 @@ public class UserResource {
             } else if (response.getStatus() == 409) {
                  return Response.status(409).entity("{\"error\": \"User already exists\"}").build();
             } else {
-                return Response.status(response.getStatus()).entity("{\"error\": \"Failed to create user\"}").build();
+                String errorBody = response.readEntity(String.class);
+                System.out.println("Keycloak Registration Failed. Status: " + response.getStatus() + ", Body: " + errorBody);
+                return Response.status(response.getStatus()).entity("{\"error\": \"Failed to create user: " + response.getStatus() + " " + errorBody + "\"}").build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError().entity("{\"error\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(LoginDTO dto) {
+        try {
+            String tokenUrl = keycloakUrl + "/protocol/openid-connect/token";
+            
+            try (Client client = ClientBuilder.newClient()) {
+                Form form = new Form();
+                form.param("grant_type", "password");
+                form.param("client_id", clientId);
+                form.param("client_secret", clientSecret); 
+                form.param("username", dto.email);
+                form.param("password", dto.password);
+
+                Response keycloakResponse = client.target(tokenUrl)
+                        .request(MediaType.APPLICATION_JSON)
+                        .post(Entity.form(form));
+
+                if (keycloakResponse.getStatus() == 200) {
+                    String json = keycloakResponse.readEntity(String.class);
+                    return Response.ok(json).build();
+                } else {
+                    return Response.status(401).entity("{\"error\": \"Invalid credentials\"}").build();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
