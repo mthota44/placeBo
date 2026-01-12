@@ -110,6 +110,7 @@ const Login = () => {
                             <Label htmlFor="email">Email address</Label>
                             <Input
                                 id="email"
+                                name="email"
                                 type="email"
                                 placeholder="john@example.com"
                                 required
@@ -129,6 +130,7 @@ const Login = () => {
                             </div>
                             <Input
                                 id="password"
+                                name="password"
                                 type="password"
                                 required
                                 className="h-12"

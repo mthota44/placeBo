@@ -38,7 +38,11 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response register(RegistrationDTO dto) {
+        System.out.println("Received registration request: name=" + dto.name + ", email=" + dto.email + ", password=" + (dto.password != null ? "***" : "null"));
         try {
+            if (dto.email == null || dto.email.trim().isEmpty()) {
+                return Response.status(400).entity("{\"error\": \"Email is required\"}").build();
+            }
             UserRepresentation user = new UserRepresentation();
             user.setUsername(dto.email);
             user.setEmail(dto.email);

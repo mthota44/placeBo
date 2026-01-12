@@ -98,6 +98,7 @@ const Signup = () => {
                             <Label htmlFor="name">Full Name</Label>
                             <Input
                                 id="name"
+                                name="name"
                                 type="text"
                                 placeholder="John Doe"
                                 required
@@ -109,6 +110,7 @@ const Signup = () => {
                             <Label htmlFor="email">Email address</Label>
                             <Input
                                 id="email"
+                                name="email"
                                 type="email"
                                 placeholder="john@example.com"
                                 required
@@ -120,6 +122,7 @@ const Signup = () => {
                             <Label htmlFor="password">Password</Label>
                             <Input
                                 id="password"
+                                name="password"
                                 type="password"
                                 required
                                 className="h-12"
